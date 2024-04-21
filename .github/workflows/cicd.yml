@@ -65,7 +65,7 @@ jobs:
         run: |
           envsubst < manifests/staging-app.yaml | kubectl apply -f -
         env:
-          FRONTEND_IMAGE: aksloadtestdemo.azurecr.io/${{ github.repository }}:${{ github.sha }}
+          FRONTEND_IMAGE: aaf6ee.azurecr.io/${{ github.repository }}:${{ github.sha }}
       - name: Create version ID
         id: version
         run: |
@@ -128,4 +128,4 @@ jobs:
           FRONTEND_REPLICAS: ${{ matrix.frontend_replicas }}
           FRONTEND_CPU_LIMIT: ${{ matrix.frontend_cpu_limit }}
           FRONTEND_MEM_LIMIT: ${{ matrix.frontend_mem_limit }}
-          FRONTEND_IMAGE: aksloadtestdemo.azurecr.io/${{ github.repository }}:${{ github.sha }}
+          FRONTEND_IMAGE: aaf6ee.azurecr.io/${{ github.repository }}:${{ github.sha }}
