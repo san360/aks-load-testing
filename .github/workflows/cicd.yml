@@ -52,7 +52,7 @@ jobs:
       - name: Setup kubelogin
         uses: azure/use-kubelogin@v1
         with:
-          kubelogin-version: 'latest'
+          kubelogin-version: 'v0.0.24'
       - name: Apply Kubernetes Configuration
         run: |
           envsubst < manifests/staging-app.yaml | kubectl apply -f -
