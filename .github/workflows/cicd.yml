@@ -46,6 +46,9 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Get AKS Credentials
+        run: |
+          az aks get-credentials --resource-group ${{ secrets.AZURE_RESOURCE_GROUP_NAME }} --name ${{ secrets.AKS_NAME }}
       - name: Setup kubelogin
         uses: azure/use-kubelogin@v1
         with:
@@ -103,6 +106,9 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Get AKS Credentials
+        run: |
+          az aks get-credentials --resource-group ${{ secrets.AZURE_RESOURCE_GROUP_NAME }} --name ${{ secrets.AKS_NAME }}
       - name: Setup kubelogin
         uses: azure/use-kubelogin@v1
         with:
