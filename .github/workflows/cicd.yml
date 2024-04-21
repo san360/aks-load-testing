@@ -46,13 +46,15 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: azure/setup-kubectl@v3
+        name: Setup kubectl
       - name: Get AKS Credentials
         run: |
           az aks get-credentials --resource-group ${{ secrets.AZURE_RESOURCE_GROUP_NAME }} --name ${{ secrets.AKS_NAME }}
       - name: Setup kubelogin
         uses: azure/use-kubelogin@v1
         with:
-          kubelogin-version: 'v0.0.24'
+          kubelogin-version: 'v0.0.26'
       - name: Set AKS context
         id: set-context
         uses: azure/aks-set-context@v3
@@ -61,6 +63,9 @@ jobs:
           cluster-name: '${{ secrets.AKS_NAME }}'
           admin: 'false'
           use-kubelogin: 'true'
+      - name: Run kubectl
+        run: |
+          kubectl get ns          
       - name: Apply Kubernetes Configuration
         run: |
           envsubst < manifests/staging-app.yaml | kubectl apply -f -
