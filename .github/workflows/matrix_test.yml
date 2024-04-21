@@ -49,6 +49,14 @@ jobs:
         uses: azure/use-kubelogin@v1
         with:
           kubelogin-version: 'v0.0.24'
+      - name: Set AKS context
+        id: set-context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: '${{ secrets.AZURE_RESOURCE_GROUP_NAME }}'
+          cluster-name: '${{ secrets.AKS_NAME }}'
+          admin: 'false'
+          use-kubelogin: 'true'
       - name: Apply Kubernetes Configuration
         run: |
           envsubst < manifests/app.yaml | kubectl apply -f -
