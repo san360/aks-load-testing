@@ -50,7 +50,7 @@ jobs:
         name: Setup kubectl
       - name: Get AKS Credentials
         run: |
-          az aks get-credentials --resource-group ${{ env.AZURE_RESOURCE_GROUP_NAME }} --name ${{ env.AKS_NAME }}
+          az aks get-credentials --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --name ${{ vars.AKS_NAME }}
       - name: Setup kubelogin
         uses: azure/use-kubelogin@v1
         with:
@@ -59,8 +59,8 @@ jobs:
         id: set-context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: '${{ env.AZURE_RESOURCE_GROUP_NAME }}'
-          cluster-name: '${{ env.AKS_NAME }}'
+          resource-group: '${{ vars.AZURE_RESOURCE_GROUP_NAME }}'
+          cluster-name: '${{ vars.AKS_NAME }}'
           admin: 'false'
           use-kubelogin: 'true'
       - name: Run kubectl
@@ -83,7 +83,7 @@ jobs:
           loadTestResource: ${{ secrets.AZURE_LOAD_TEST_NAME }}
           loadTestRunName: "GitHub Action ${{ steps.version.outputs.sha_short }}"
           loadTestRunDescription: ${{ github.event.head_commit.message }}
-          resourceGroup: ${{ env.AZURE_RESOURCE_GROUP_NAME }}
+          resourceGroup: ${{ vars.AZURE_RESOURCE_GROUP_NAME }}
           env: |
             [
               {
@@ -113,7 +113,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Get AKS Credentials
         run: |
-          az aks get-credentials --resource-group ${{ env.AZURE_RESOURCE_GROUP_NAME }} --name ${{ env.AKS_NAME }}
+          az aks get-credentials --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --name ${{ vars.AKS_NAME }}
       - name: Setup kubelogin
         uses: azure/use-kubelogin@v1
         with:
@@ -122,8 +122,8 @@ jobs:
         id: set-context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: '${{ env.AZURE_RESOURCE_GROUP_NAME }}'
-          cluster-name: '${{ env.AKS_NAME }}'
+          resource-group: '${{ vars.AZURE_RESOURCE_GROUP_NAME }}'
+          cluster-name: '${{ vars.AKS_NAME }}'
           admin: 'false'
           use-kubelogin: 'true'
       - name: Apply Kubernetes Configuration
