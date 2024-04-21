@@ -45,6 +45,10 @@ jobs:
       - name: Get AKS Credentials
         run: |
           az aks get-credentials --resource-group ${{ secrets.AZURE_RESOURCE_GROUP_NAME }} --name ${{ secrets.AKS_NAME }}
+      - name: Setup kubelogin
+        uses: azure/use-kubelogin@v1
+        with:
+          kubelogin-version: 'latest'
       - name: Apply Kubernetes Configuration
         run: |
           envsubst < manifests/app.yaml | kubectl apply -f -
